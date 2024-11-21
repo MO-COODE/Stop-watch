@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Watch Using JS</title>
+    <link rel="stylesheet" href="watch.css">
+</head>
+<body>
+    
+    <div class="stopwatch">
+        <h1 id="displayTime">00:00:00</h1>
+        <button class="buttons">
+            <img src="./images/pause2.png" alt="stop" onclick="stopWatch()">
+            <img src="./images/start.png" alt="start" onclick="startWatch()">
+            <img src="./images/stop.png" alt="restart" onclick="resetWatch()">
+        </button>
+    </div>
+
+
+
+    <script>
+        let [seconds, minutes, hours] = [0,0,0];
+        let displayTime = document.getElementById('displayTime');
+        let timer = null;
+
+        function watchCounter(){
+            seconds ++;
+            if(seconds === 60) {
+                seconds = 0;
+                minutes ++;
+
+                if(minutes === 60){
+                    minutes = 0;
+                    hours ++;
+                }
+            }
+
+            let h = hours < 10 ? '0' + hours: hours;
+            let m = minutes < 10 ? '0' + minutes: minutes;
+            let s = seconds < 10 ? '0' + seconds: seconds;
+
+            displayTime.innerHTML = h + ":" + m + ":" + s;
+        }
+
+
+        function startWatch() {
+            if (timer !== null){
+                clearInterval(timer);
+            }
+           timer = setInterval(watchCounter, 1000);
+        }
+
+        function stopWatch(){
+            clearInterval(timer)
+        }
+
+        function resetWatch(){
+            let [seconds, minutes, hours] = [0,0,0];
+            clearInterval(timer);
+            displayTime.innerHTML = "00:00:00";
+        }
+
+
+
+    </script>
+</body>
+</html>
